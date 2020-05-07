@@ -1,0 +1,60 @@
+#!/bin/bash
+
+set -o nounset -o pipefail -o errexit
+
+TMP=$(mktemp -d)
+trap 'rm -rf $TMP' EXIT
+
+ACTION=${1-}
+NGINX=nginx-rtmp
+
+if [ "$ACTION" = "install" ]; then
+    PREFIX=$2
+
+    wget -O "$TMP/nginx.tar.gz" "http://nginx.org/download/nginx-1.17.10.tar.gz"
+    wget -O "$TMP/rtmp-module.tar.gz" "https://github.com/arut/nginx-rtmp-module/archive/v1.2.1.tar.gz"
+    sha256sum --check <<EOF
+a9aa73f19c352a6b166d78e2a664bb3ef1295bbe6d3cc5aa7404bd4664ab4b83  $TMP/nginx.tar.gz
+87aa597400b0b5a05274ee2d23d8cb8224e12686227a0abe31d783b3a645ea37  $TMP/rtmp-module.tar.gz
+EOF
+    mkdir "$TMP/nginx" "$TMP/rtmp-module"
+    tar -xf "$TMP/nginx.tar.gz" -C "$TMP/nginx" --strip-components=1
+    tar -xf "$TMP/rtmp-module.tar.gz" -C "$TMP/rtmp-module" --strip-components=1
+
+    (
+        cd "$TMP/nginx"
+
+        ./configure --prefix="$PREFIX" --sbin-path="$PREFIX/bin/$NGINX" \
+            --with-cc-opt="-Wimplicit-fallthrough=0" \
+            --add-module="$TMP/rtmp-module"
+
+        make install -j$((2*$(nproc)))
+    )
+
+    exit 0
+fi
+
+APP=${1-app}
+STREAM=${2-live}
+
+cat <<EOF > "$TMP/config"
+daemon off;
+error_log /dev/stderr info;
+
+events { }
+
+rtmp {
+    access_log /dev/stdout;
+    server {
+        listen 1935;
+        chunk_size 4096;
+
+        application $APP {
+            live on;
+            record off;
+        }
+    }
+}
+EOF
+
+"$NGINX" -c "$TMP/config"
