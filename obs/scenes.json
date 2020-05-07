@@ -60,7 +60,7 @@
         "volume": 1.0
     },
     "current_program_scene": "Limbo",
-    "current_scene": "Limbo",
+    "current_scene": "Limbo w/ sound",
     "current_transition": "Fade",
     "groups": [],
     "modules": {
@@ -132,8 +132,45 @@
             "deinterlace_mode": 0,
             "enabled": true,
             "flags": 0,
+            "hotkeys": {},
+            "id": "text_ft2_source",
+            "mixers": 0,
+            "monitoring_type": 0,
+            "muted": false,
+            "name": "live",
+            "prev_ver": 419430408,
+            "private_settings": {},
+            "push-to-mute": false,
+            "push-to-mute-delay": 0,
+            "push-to-talk": false,
+            "push-to-talk-delay": 0,
+            "settings": {
+                "color1": 4278190335,
+                "color2": 4278190335,
+                "font": {
+                    "face": "Inconsolata",
+                    "flags": 0,
+                    "size": 256,
+                    "style": "Regular"
+                },
+                "text": "live!"
+            },
+            "sync": 0,
+            "versioned_id": "text_ft2_source_v2",
+            "volume": 1.0
+        },
+        {
+            "balance": 0.5,
+            "deinterlace_field_order": 0,
+            "deinterlace_mode": 0,
+            "enabled": true,
+            "flags": 0,
             "hotkeys": {
-                "OBSBasic.SelectScene": [],
+                "OBSBasic.SelectScene": [
+                    {
+                        "key": "OBS_KEY_F5"
+                    }
+                ],
                 "libobs.hide_scene_item.homepage": [],
                 "libobs.hide_scene_item.localhost": [],
                 "libobs.show_scene_item.homepage": [],
@@ -262,7 +299,11 @@
             "enabled": true,
             "flags": 0,
             "hotkeys": {
-                "OBSBasic.SelectScene": [],
+                "OBSBasic.SelectScene": [
+                    {
+                        "key": "OBS_KEY_F1"
+                    }
+                ],
                 "libobs.hide_scene_item.avatar": [],
                 "libobs.hide_scene_item.background": [],
                 "libobs.hide_scene_item.homepage": [],
@@ -501,11 +542,13 @@
                 "libobs.hide_scene_item.avatar": [],
                 "libobs.hide_scene_item.background": [],
                 "libobs.hide_scene_item.homepage": [],
+                "libobs.hide_scene_item.live": [],
                 "libobs.hide_scene_item.localhost": [],
                 "libobs.hide_scene_item.purple diamond": [],
                 "libobs.show_scene_item.avatar": [],
                 "libobs.show_scene_item.background": [],
                 "libobs.show_scene_item.homepage": [],
+                "libobs.show_scene_item.live": [],
                 "libobs.show_scene_item.localhost": [],
                 "libobs.show_scene_item.purple diamond": []
             },
@@ -522,7 +565,7 @@
             "push-to-talk-delay": 0,
             "settings": {
                 "custom_size": false,
-                "id_counter": 5,
+                "id_counter": 7,
                 "items": [
                     {
                         "align": 5,
@@ -570,8 +613,8 @@
                         "locked": false,
                         "name": "background",
                         "pos": {
-                            "x": 0.0,
-                            "y": 0.0
+                            "x": -217.0,
+                            "y": -142.0
                         },
                         "private_settings": {},
                         "rot": 0.0,
@@ -665,6 +708,35 @@
                         "scale": {
                             "x": 0.1506076455116272,
                             "y": 0.15057915449142456
+                        },
+                        "scale_filter": "disable",
+                        "visible": true
+                    },
+                    {
+                        "align": 5,
+                        "bounds": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "bounds_align": 0,
+                        "bounds_type": 0,
+                        "crop_bottom": 0,
+                        "crop_left": 0,
+                        "crop_right": 0,
+                        "crop_top": 0,
+                        "group_item_backup": false,
+                        "id": 7,
+                        "locked": false,
+                        "name": "live",
+                        "pos": {
+                            "x": 1101.0,
+                            "y": 26.0
+                        },
+                        "private_settings": {},
+                        "rot": 0.0,
+                        "scale": {
+                            "x": 0.228515625,
+                            "y": 0.22831049561500549
                         },
                         "scale_filter": "disable",
                         "visible": true
