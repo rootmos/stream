@@ -1,5 +1,5 @@
 {
-    "current_program_scene": "Limbo",
+    "current_program_scene": "Nothingness",
     "current_scene": "Limbo",
     "current_transition": "Fade",
     "groups": [
@@ -9,7 +9,14 @@
             "deinterlace_mode": 0,
             "enabled": true,
             "flags": 0,
-            "hotkeys": {},
+            "hotkeys": {
+                "libobs.hide_scene_item.now playing": [],
+                "libobs.hide_scene_item.now playing: link": [],
+                "libobs.hide_scene_item.now playing: title": [],
+                "libobs.show_scene_item.now playing": [],
+                "libobs.show_scene_item.now playing: link": [],
+                "libobs.show_scene_item.now playing: title": []
+            },
             "id": "group",
             "mixers": 0,
             "monitoring_type": 0,
@@ -23,8 +30,8 @@
             "push-to-talk-delay": 0,
             "settings": {
                 "custom_size": true,
-                "cx": 234,
-                "cy": 116,
+                "cx": 567,
+                "cy": 121,
                 "id_counter": 0,
                 "items": [
                     {
@@ -144,29 +151,7 @@
     },
     "name": "rootmos",
     "preview_locked": false,
-    "quick_transitions": [
-        {
-            "duration": 300,
-            "fade_to_black": false,
-            "hotkeys": [],
-            "id": 1,
-            "name": "Cut"
-        },
-        {
-            "duration": 300,
-            "fade_to_black": false,
-            "hotkeys": [],
-            "id": 2,
-            "name": "Fade"
-        },
-        {
-            "duration": 300,
-            "fade_to_black": true,
-            "hotkeys": [],
-            "id": 3,
-            "name": "Fade"
-        }
-    ],
+    "quick_transitions": [],
     "saved_projectors": [],
     "scaling_enabled": false,
     "scaling_level": 0,
@@ -181,9 +166,45 @@
         },
         {
             "name": "Limbo"
+        },
+        {
+            "name": "Nothingness"
         }
     ],
     "sources": [
+        {
+            "balance": 0.5,
+            "deinterlace_field_order": 0,
+            "deinterlace_mode": 0,
+            "enabled": true,
+            "flags": 0,
+            "hotkeys": {
+                "OBSBasic.SelectScene": [
+                    {
+                        "key": "OBS_KEY_F3"
+                    }
+                ]
+            },
+            "id": "scene",
+            "mixers": 0,
+            "monitoring_type": 0,
+            "muted": false,
+            "name": "Nothingness",
+            "prev_ver": 419430408,
+            "private_settings": {},
+            "push-to-mute": false,
+            "push-to-mute-delay": 0,
+            "push-to-talk": false,
+            "push-to-talk-delay": 0,
+            "settings": {
+                "custom_size": false,
+                "id_counter": 0,
+                "items": []
+            },
+            "sync": 0,
+            "versioned_id": "scene",
+            "volume": 1.0
+        },
         {
             "balance": 0.5,
             "deinterlace_field_order": 0,
@@ -464,18 +485,12 @@
                 "libobs.hide_scene_item.background": [],
                 "libobs.hide_scene_item.homepage": [],
                 "libobs.hide_scene_item.limbo music": [],
-                "libobs.hide_scene_item.now playing": [],
-                "libobs.hide_scene_item.now playing: link": [],
-                "libobs.hide_scene_item.now playing: title": [],
                 "libobs.hide_scene_item.purple diamond": [],
                 "libobs.show_scene_item.Group": [],
                 "libobs.show_scene_item.avatar": [],
                 "libobs.show_scene_item.background": [],
                 "libobs.show_scene_item.homepage": [],
                 "libobs.show_scene_item.limbo music": [],
-                "libobs.show_scene_item.now playing": [],
-                "libobs.show_scene_item.now playing: link": [],
-                "libobs.show_scene_item.now playing: title": [],
                 "libobs.show_scene_item.purple diamond": []
             },
             "id": "scene",
