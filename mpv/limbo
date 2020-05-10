@@ -1,0 +1,33 @@
+#!/bin/bash
+
+set -o nounset -o pipefail -o errexit
+
+SCRIPT_DIR=$(readlink -f "$0" | xargs dirname)
+
+PLAYLIST=${PLAYLIST-$SCRIPT_DIR/limbo.m3u}
+
+RUN_DIR=$SCRIPT_DIR/run
+mkdir -p "$RUN_DIR"
+export TITLE_FILE=$RUN_DIR/title.txt
+export LINK_FILE=$RUN_DIR/link.txt
+
+reset() {
+    cp /dev/null "$TITLE_FILE"
+    cp /dev/null "$LINK_FILE"
+}
+trap 'reset; pkill -P $$' EXIT
+reset
+
+SINK=limbo
+if ! pacmd list-sinks | grep -cq "$SINK"; then
+    pacmd load-module module-null-sink sink_name="$SINK"
+    pacmd update-sink-proplist "$SINK" device.description="$SINK"
+fi
+
+${MPV-/usr/bin/mpv} \
+        --audio-device=pulse/"$SINK" \
+        --script="$SCRIPT_DIR/currently-playing.lua" \
+        --shuffle \
+        --playlist="$PLAYLIST" \
+        --loop-playlist=inf \
+        --really-quiet

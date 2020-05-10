@@ -3,7 +3,7 @@
 set -o nounset -o pipefail -o errexit
 
 TMP=$(mktemp -d)
-trap 'rm -rf $TMP' EXIT
+trap 'rm -rf $TMP; pkill -P $$' EXIT
 
 ACTION=${1-}
 NGINX=nginx-rtmp

@@ -10,7 +10,7 @@ CHANNEL=${CHANNEL-rootmos2}
 obs >> "$LOG" 2>&1 &
 OBS_PID=$!
 ERROR_LOG="$LOG" "$SCRIPT_DIR/restreamer" &
-RESTREAMER_PID=$!
+"$SCRIPT_DIR/mpv/limbo" &
 
 chromium --new-window --start-fullscreen \
     "https://dashboard.twitch.tv/u/$CHANNEL/stream-manager" &
@@ -18,7 +18,7 @@ chromium --new-window --start-fullscreen \
 RUNNING=true
 
 cleanup() {
-    killall --quiet $OBS_PID $RESTREAMER_PID
+    pkill -P $$
     RUNNING=false
 }
 trap 'cleanup' INT EXIT
