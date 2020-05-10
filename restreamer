@@ -39,12 +39,12 @@ STREAM=${2-live}
 
 cat <<EOF > "$TMP/config"
 daemon off;
-error_log /dev/stderr info;
+error_log ${ERROR_LOG-/dev/stderr} info;
 
 events { }
 
 rtmp {
-    access_log /dev/stdout;
+    access_log ${ACCESS_LOG-/dev/stdout};
     server {
         listen 1935;
         chunk_size 4096;
