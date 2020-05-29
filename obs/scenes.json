@@ -1,6 +1,6 @@
 {
-    "current_program_scene": "Nothingness",
-    "current_scene": "Limbo",
+    "current_program_scene": "Limbo (music)",
+    "current_scene": "Nothingness",
     "current_transition": "Fade",
     "groups": [
         {
@@ -30,8 +30,8 @@
             "push-to-talk-delay": 0,
             "settings": {
                 "custom_size": true,
-                "cx": 567,
-                "cy": 121,
+                "cx": 669,
+                "cy": 106,
                 "id_counter": 0,
                 "items": [
                     {
@@ -51,14 +51,14 @@
                         "locked": true,
                         "name": "now playing: link",
                         "pos": {
-                            "x": 22.0,
-                            "y": 90.0
+                            "x": 30.0,
+                            "y": 83.0
                         },
                         "private_settings": {},
                         "rot": 0.0,
                         "scale": {
-                            "x": 0.1182725727558136,
-                            "y": 0.11969111859798431
+                            "x": 0.0881696417927742,
+                            "y": 0.08812260627746582
                         },
                         "scale_filter": "disable",
                         "visible": true
@@ -80,14 +80,14 @@
                         "locked": true,
                         "name": "now playing: title",
                         "pos": {
-                            "x": 20.0,
-                            "y": 43.0
+                            "x": 14.0,
+                            "y": 39.0
                         },
                         "private_settings": {},
                         "rot": 0.0,
                         "scale": {
-                            "x": 0.169921875,
-                            "y": 0.16988417506217957
+                            "x": 0.1462053507566452,
+                            "y": 0.14611871540546417
                         },
                         "scale_filter": "disable",
                         "visible": true
@@ -115,8 +115,8 @@
                         "private_settings": {},
                         "rot": 0.0,
                         "scale": {
-                            "x": 0.15234375,
-                            "y": 0.15325669944286346
+                            "x": 0.111328125,
+                            "y": 0.1111111119389534
                         },
                         "scale_filter": "disable",
                         "visible": true
@@ -162,10 +162,10 @@
             "name": "Live"
         },
         {
-            "name": "Limbo w/ sound"
+            "name": "Limbo (live sound)"
         },
         {
-            "name": "Limbo"
+            "name": "Limbo (music)"
         },
         {
             "name": "Nothingness"
@@ -497,7 +497,7 @@
             "mixers": 0,
             "monitoring_type": 0,
             "muted": false,
-            "name": "Limbo",
+            "name": "Limbo (music)",
             "prev_ver": 419430408,
             "private_settings": {},
             "push-to-mute": false,
@@ -670,14 +670,14 @@
                         "locked": true,
                         "name": "now playing: link",
                         "pos": {
-                            "x": 47.0,
-                            "y": 656.0
+                            "x": 48.0,
+                            "y": 669.0
                         },
                         "private_settings": {},
                         "rot": 0.0,
                         "scale": {
-                            "x": 0.1182725727558136,
-                            "y": 0.11969111859798431
+                            "x": 0.0881696417927742,
+                            "y": 0.08812260627746582
                         },
                         "scale_filter": "disable",
                         "visible": true
@@ -699,14 +699,14 @@
                         "locked": true,
                         "name": "now playing: title",
                         "pos": {
-                            "x": 45.0,
-                            "y": 609.0
+                            "x": 32.0,
+                            "y": 625.0
                         },
                         "private_settings": {},
                         "rot": 0.0,
                         "scale": {
-                            "x": 0.169921875,
-                            "y": 0.16988417506217957
+                            "x": 0.1462053507566452,
+                            "y": 0.14611871540546417
                         },
                         "scale_filter": "disable",
                         "visible": true
@@ -728,14 +728,14 @@
                         "locked": true,
                         "name": "now playing",
                         "pos": {
-                            "x": 25.0,
-                            "y": 566.0
+                            "x": 18.0,
+                            "y": 586.0
                         },
                         "private_settings": {},
                         "rot": 0.0,
                         "scale": {
-                            "x": 0.15234375,
-                            "y": 0.15325669944286346
+                            "x": 0.111328125,
+                            "y": 0.1111111119389534
                         },
                         "scale_filter": "disable",
                         "visible": true
@@ -757,8 +757,8 @@
                         "locked": true,
                         "name": "Group",
                         "pos": {
-                            "x": 25.0,
-                            "y": 566.0
+                            "x": 18.0,
+                            "y": 586.0
                         },
                         "private_settings": {},
                         "rot": 0.0,
@@ -885,7 +885,7 @@
             "mixers": 0,
             "monitoring_type": 0,
             "muted": false,
-            "name": "Limbo w/ sound",
+            "name": "Limbo (live sound)",
             "prev_ver": 419430408,
             "private_settings": {},
             "push-to-mute": false,
@@ -1115,7 +1115,7 @@
             },
             "id": "pulse_output_capture",
             "mixers": 255,
-            "monitoring_type": 0,
+            "monitoring_type": 2,
             "muted": false,
             "name": "limbo music",
             "prev_ver": 419430408,
