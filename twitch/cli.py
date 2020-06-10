@@ -12,6 +12,12 @@ import sys
 import re
 import argparse
 import tempfile
+import socket
+import ssl
+import select
+import errno
+import asyncio
+import logging
 
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -27,6 +33,7 @@ redirect_uri = f"http://{redirect_host}:{redirect_port}{redirect_path}"
 helix_url = "https://api.twitch.tv/helix"
 kraken_url = "https://api.twitch.tv/kraken"
 oauth2_url = "https://id.twitch.tv/oauth2"
+irc_addr = ("irc.chat.twitch.tv", 6697)
 
 # utils
 
@@ -68,6 +75,25 @@ def render_duration(secs):
         s += f"{secs}s"
 
     return s
+
+# logging
+
+logger = None
+def setup_logger(level):
+    l = logging.getLogger('twitch-cli')
+    l.setLevel(level)
+
+    ch = logging.StreamHandler()
+    ch.setLevel(level)
+
+    f = logging.Formatter(
+        fmt='%(asctime)s:%(name)s:%(levelname)s %(message)s',
+        datefmt='%Y-%m-%dT%H:%M:%S%z')
+    ch.setFormatter(f)
+
+    l.addHandler(ch)
+
+    return l
 
 # auth
 
@@ -193,6 +219,15 @@ class Client:
             r.raise_for_status()
             j = r.json()
             self._me = User(self, user_name=j["login"], user_id=j["user_id"])
+            self.scopes = j["scopes"]
+
+            logger.info(f"authenticated as {self._me.user_name} ({self._me.user_id}) with scopes: {' '.join(self.scopes)}")
+            exp = j["expires_in"]
+            if exp / 3600 < 24:
+                logger.warning(f"access token expries soon: {render_duration(exp)}")
+            else:
+                logger.debug(f"access token expries in {render_duration(exp)}")
+
         return self._me
 
     def put(self, url, body, kraken=False):
@@ -504,6 +539,7 @@ def parse_args(args):
     parser.add_argument("--menu", help="run dmenu", action="store_true")
     parser.add_argument("--json", help="output json", action="store_true")
     parser.add_argument("--menu-lines", type=int, default=20, help="number of maximum lines in the menu")
+    parser.add_argument("--chat", action="store_true", help="interact with chat")
     parser.add_argument("--title-max-length", type=int, default=80, help="maximum length of printed titles")
     parser.add_argument('channels', metavar='CHANNEL', nargs='*',
                         help='channel to act on (defaults to followed channels)')
@@ -570,16 +606,149 @@ def run_manager(args):
             for k, v in d.items():
                 print(f"{k}: {v}")
 
+class IRCMessage:
+    def __init__(self, bs):
+        self.raw = bs
+        s = str(bs, "UTF-8")
+        self.tags, s = IRCMessage.__parse_tags(s)
+        self.prefix, s = IRCMessage.__parse_prefix(s)
+        self.command, s = IRCMessage.__parse_command(s)
+        self.params, self.trailing = IRCMessage.__parse_params(s, [])
+
+    def __repr__(self):
+        props = []
+        if self.prefix is not None: props.append(f"prefix={self.prefix}")
+        if self.tags is not None: props.append(f"tags={self.tags}")
+        if self.command is not None: props.append(f"command={self.command}")
+        if len(self.params) > 0: props.append(f"params={self.params}")
+        if self.trailing is not None: props.append(f"trailing={self.trailing}")
+        return f"IRCMessage({','.join(props)})"
+
+    def __parse_prefix(s):
+        if s[0] == ':':
+            i = s.index(' ')
+            return s[1:i], s[i:]
+        else:
+            return None, s
+
+    def __parse_command(s):
+        m = re.match("[ ]*(\w+)|(\d\d\d)", s)
+        cmd = m.group(1)
+        return cmd, s[len(m.group(0)):]
+
+    def __parse_params(s, acc):
+        if s == "" or re.fullmatch("[ ]+", s):
+            return acc, None
+
+        m = re.fullmatch("[ ]+:(.*)", s)
+        if m:
+            return acc, m.group(1)
+        else:
+            m = re.match("[ ]+([^ :][^ ]*)(.*)", s)
+            if m is None:
+                raise ValueError(f"<params> don't match: {s}")
+            middle = m.group(1)
+            acc.append(middle)
+            return IRCMessage.__parse_params(m.group(2), acc)
+
+    def __parse_tags(s):
+        if s[0] != '@':
+            return {}, s
+        else:
+            return IRCMessage.__parse_tag(s[1:], {})
+
+    def __parse_tag(s, acc):
+        p = re.compile("(\\+?([a-zA-Z0-9\\-]+/)?[a-zA-Z0-9\\-]+)(=([^ ;]*))?[ ;]")
+        m = p.match(s)
+        if m is None: return acc, s
+        acc[m.group(1)] = m.group(4)
+        return IRCMessage.__parse_tag(s[m.end(0):], acc)
+
+class Chat:
+    def __init__(self, client, channels, callback, reader, writer):
+        self.client = client or Client(scope="chat:read")
+        self.callback = callback
+        self.reader = reader
+        self.writer = writer
+        self.queue = asyncio.Queue()
+
+        if len(channels) == 0:
+            self.channels = [ self.client.me.user_name ]
+        else:
+            self.channels = [ u.user_name for u in self.client.user(*channels) ]
+
+    async def send_line(self, line):
+        await self.queue.put(bytes(line + "\r\n", "UTF-8"))
+
+    async def _read(self):
+        bs = await self.reader.readuntil(separator=b'\r\n')
+        bs = bs[:-2]
+        logger.debug(f"received IRC message: {bs}")
+        await self.callback(self, IRCMessage(bs))
+        await self._read()
+
+    async def _write(self):
+        bs = await self.queue.get()
+        self.writer.write(bs)
+        self.queue.task_done()
+        logger.debug(f"sending IRC message: {bs}")
+        await self._write()
+
+    @staticmethod
+    async def run(callback, *channels, client=None):
+        r, w = await asyncio.open_connection(
+            host = irc_addr[0], port = irc_addr[1],
+            family = socket.AF_INET,
+            ssl = True
+        )
+
+        ctx = Chat(callback=callback, channels=channels, client=client, reader=r, writer=w)
+
+        await ctx.send_line(f"PASS oauth:{ctx.client.token}")
+        await ctx.send_line(f"NICK {ctx.client.me.user_name}")
+        await ctx.send_line("CAP REQ :twitch.tv/membership")
+        await ctx.send_line("CAP REQ :twitch.tv/commands")
+        await ctx.send_line("CAP REQ :twitch.tv/tags")
+
+        for c in ctx.channels:
+            await ctx.send_line(f"JOIN #{c}")
+
+        await asyncio.gather(ctx._read(), ctx._write())
+
+async def handle_twitch_chat_message(chat, msg):
+    if msg.command == "PING":
+        await chat.send_line(f"PONG {msg.trailing}")
+        return
+
+    if msg.command != "PRIVMSG":
+        return
+
+    d = datetime.fromtimestamp(int(msg.tags["tmi-sent-ts"])/1000)
+    d = d.isoformat(timespec='seconds')
+    u = msg.tags["display-name"]
+
+    if len(chat.channels) > 1:
+        print(f"{d} {msg.params[0]} {u}: {msg.trailing}")
+    else:
+        print(f"{d} {u}: {msg.trailing}")
+
 if __name__ == "__main__":
     p = argparse.ArgumentParser(add_help=False)
     p.add_argument("--manage", action="store_true")
+    p.add_argument("--log", default="WARN")
     (a, args) = p.parse_known_args()
+
+    logger = setup_logger(a.log.upper())
 
     if a.manage:
         run_manager(parse_manager_args(args))
         sys.exit(0)
     else:
         args = parse_args(args)
+
+    if args.chat:
+        asyncio.run(Chat.run(handle_twitch_chat_message, *args.channels))
+        sys.exit(0)
 
     c = Client(scope="")
 

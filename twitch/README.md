@@ -5,6 +5,8 @@
 * list videos and active streams of channels
 * [dmenu](https://tools.suckless.org/dmenu/) integration to select channels,
   videos or streams
+* manage stream metadata: title, category
+* read chat
 
 ## Example
 The menu option makes for a simple Twitch GUI when paired
@@ -21,7 +23,7 @@ however it doesn't list videos (at the time of writing).
 ## Usage
 ```
 usage: cli.py [-h] [--following] [--menu] [--json] [--menu-lines MENU_LINES]
-              [--title-max-length TITLE_MAX_LENGTH] [--since SINCE]
+              [--chat] [--title-max-length TITLE_MAX_LENGTH] [--since SINCE]
               [CHANNEL [CHANNEL ...]]
 
 Twitch command line interface
@@ -36,6 +38,7 @@ optional arguments:
   --json                output json
   --menu-lines MENU_LINES
                         number of maximum lines in the menu
+  --chat                interact with chat
   --title-max-length TITLE_MAX_LENGTH
                         maximum length of printed titles
   --since SINCE         days to list videos
