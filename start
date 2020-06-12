@@ -1,19 +1,50 @@
 #!/bin/bash
 
 set -o nounset -o pipefail -o errexit
-set -o xtrace
 
-SCRIPT_DIR=$(readlink -f "$0" | xargs dirname)
+SCRIPT=$(readlink -f "$0")
+SCRIPT_DIR=$(dirname "$SCRIPT")
 
 SESSION=${SESSION-stream}
 ACTION=${1-start}
+CHANNEL=${CHANNEL-${2-rootmos2}}
 
 if [ "$ACTION" = "start" ]; then
-    tmux new-session -A -s "$SESSION" "$0" setup
+    tmux new-session -A -s "$SESSION" -n setup "$0" setup
 elif [ "$ACTION" = "setup" ]; then
-    echo "setting up..."
     tmux new-window -n "restreamer" "$SCRIPT_DIR/restreamer"
+    tmux new-window -n "limbo" "$SCRIPT_DIR/mpv/limbo"
+    tmux new-window -n "obs" "$0" obs
+    tmux new-window -n "monitor" "$0" monitor "$CHANNEL"
+    tmux new-window -n "chat" "$0" chat
+    trap 'tmux kill-session -t "$SESSION"' EXIT
+    echo -n "done"
     while sleep 1; do
-        echo "done..."
+        echo -n "."
+    done
+elif [ "$ACTION" = "obs" ]; then
+    trap 'tmux kill-session -t "$SESSION"' EXIT
+    obs
+elif [ "$ACTION" = "chat" ]; then
+    echo "joining: $CHANNEL"
+    twitch-cli --chat "$CHANNEL" || true
+    while sleep 5; do
+        echo "reconnecting: $CHANNEL"
+        twitch-cli --chat "$CHANNEL" || true
+    done
+elif [ "$ACTION" = "monitor" ]; then
+    URL="https://twitch.tv/$CHANNEL"
+
+    while true; do
+        echo "monitoring: $URL"
+        $PLAYER --mute "$URL" || true
+
+        echo
+        echo -n "sleeping"
+        for i in $(seq 5); do
+            echo -n "."
+            sleep 1
+        done
+        clear
     done
 fi
