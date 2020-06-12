@@ -1,6 +1,6 @@
 {
-    "current_program_scene": "Limbo (music)",
-    "current_scene": "Nothingness",
+    "current_program_scene": "Live",
+    "current_scene": "Live",
     "current_transition": "Fade",
     "groups": [
         {
@@ -179,6 +179,49 @@
             "enabled": true,
             "flags": 0,
             "hotkeys": {
+                "VLCSource.PlayPause": [],
+                "VLCSource.PlaylistNext": [],
+                "VLCSource.PlaylistPrev": [],
+                "VLCSource.Restart": [],
+                "VLCSource.Stop": [],
+                "libobs.mute": [],
+                "libobs.push-to-mute": [],
+                "libobs.push-to-talk": [],
+                "libobs.unmute": []
+            },
+            "id": "vlc_source",
+            "mixers": 255,
+            "monitoring_type": 0,
+            "muted": false,
+            "name": "rtmp://localhost/app/live",
+            "prev_ver": 419430408,
+            "private_settings": {},
+            "push-to-mute": false,
+            "push-to-mute-delay": 0,
+            "push-to-talk": false,
+            "push-to-talk-delay": 0,
+            "settings": {
+                "network_caching": 4000,
+                "playback_behavior": "always_play",
+                "playlist": [
+                    {
+                        "hidden": false,
+                        "selected": false,
+                        "value": "rtmp://localhost/app/live"
+                    }
+                ]
+            },
+            "sync": 0,
+            "versioned_id": "vlc_source",
+            "volume": 1.0
+        },
+        {
+            "balance": 0.5,
+            "deinterlace_field_order": 0,
+            "deinterlace_mode": 0,
+            "enabled": true,
+            "flags": 0,
+            "hotkeys": {
                 "OBSBasic.SelectScene": [
                     {
                         "key": "OBS_KEY_F3"
@@ -347,9 +390,9 @@
                     }
                 ],
                 "libobs.hide_scene_item.homepage": [],
-                "libobs.hide_scene_item.localhost": [],
+                "libobs.hide_scene_item.rtmp://localhost/app/live": [],
                 "libobs.show_scene_item.homepage": [],
-                "libobs.show_scene_item.localhost": []
+                "libobs.show_scene_item.rtmp://localhost/app/live": []
             },
             "id": "scene",
             "mixers": 0,
@@ -364,7 +407,7 @@
             "push-to-talk-delay": 0,
             "settings": {
                 "custom_size": false,
-                "id_counter": 2,
+                "id_counter": 12,
                 "items": [
                     {
                         "align": 5,
@@ -379,9 +422,9 @@
                         "crop_right": 0,
                         "crop_top": 0,
                         "group_item_backup": false,
-                        "id": 1,
+                        "id": 12,
                         "locked": true,
-                        "name": "localhost",
+                        "name": "rtmp://localhost/app/live",
                         "pos": {
                             "x": 0.0,
                             "y": 0.0
@@ -437,44 +480,6 @@
             "enabled": true,
             "flags": 0,
             "hotkeys": {
-                "MediaSource.Pause": [],
-                "MediaSource.Play": [],
-                "MediaSource.Restart": [],
-                "MediaSource.Stop": [],
-                "libobs.mute": [],
-                "libobs.push-to-mute": [],
-                "libobs.push-to-talk": [],
-                "libobs.unmute": []
-            },
-            "id": "ffmpeg_source",
-            "mixers": 255,
-            "monitoring_type": 0,
-            "muted": false,
-            "name": "localhost",
-            "prev_ver": 419430408,
-            "private_settings": {},
-            "push-to-mute": false,
-            "push-to-mute-delay": 0,
-            "push-to-talk": false,
-            "push-to-talk-delay": 0,
-            "settings": {
-                "buffering_mb": 4,
-                "input": "rtmp://localhost/app/live",
-                "input_format": "flv",
-                "is_local_file": false,
-                "restart_on_activate": true
-            },
-            "sync": 0,
-            "versioned_id": "ffmpeg_source",
-            "volume": 1.0
-        },
-        {
-            "balance": 0.5,
-            "deinterlace_field_order": 0,
-            "deinterlace_mode": 0,
-            "enabled": true,
-            "flags": 0,
-            "hotkeys": {
                 "OBSBasic.SelectScene": [
                     {
                         "key": "OBS_KEY_F1"
@@ -506,7 +511,7 @@
             "push-to-talk-delay": 0,
             "settings": {
                 "custom_size": false,
-                "id_counter": 9,
+                "id_counter": 11,
                 "items": [
                     {
                         "align": 5,
@@ -872,14 +877,14 @@
                 "libobs.hide_scene_item.background": [],
                 "libobs.hide_scene_item.homepage": [],
                 "libobs.hide_scene_item.live": [],
-                "libobs.hide_scene_item.localhost": [],
                 "libobs.hide_scene_item.purple diamond": [],
+                "libobs.hide_scene_item.rtmp://localhost/app/live": [],
                 "libobs.show_scene_item.avatar": [],
                 "libobs.show_scene_item.background": [],
                 "libobs.show_scene_item.homepage": [],
                 "libobs.show_scene_item.live": [],
-                "libobs.show_scene_item.localhost": [],
-                "libobs.show_scene_item.purple diamond": []
+                "libobs.show_scene_item.purple diamond": [],
+                "libobs.show_scene_item.rtmp://localhost/app/live": []
             },
             "id": "scene",
             "mixers": 0,
@@ -894,7 +899,7 @@
             "push-to-talk-delay": 0,
             "settings": {
                 "custom_size": false,
-                "id_counter": 7,
+                "id_counter": 8,
                 "items": [
                     {
                         "align": 5,
@@ -909,9 +914,9 @@
                         "crop_right": 0,
                         "crop_top": 0,
                         "group_item_backup": false,
-                        "id": 4,
+                        "id": 8,
                         "locked": true,
-                        "name": "localhost",
+                        "name": "rtmp://localhost/app/live",
                         "pos": {
                             "x": 0.0,
                             "y": 0.0
@@ -1115,7 +1120,7 @@
             },
             "id": "pulse_output_capture",
             "mixers": 255,
-            "monitoring_type": 2,
+            "monitoring_type": 0,
             "muted": false,
             "name": "limbo music",
             "prev_ver": 419430408,
@@ -1132,6 +1137,6 @@
             "volume": 1.0
         }
     ],
-    "transition_duration": 300,
+    "transition_duration": 3000,
     "transitions": []
 }

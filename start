@@ -1,34 +1,19 @@
 #!/bin/bash
 
 set -o nounset -o pipefail -o errexit
+set -o xtrace
 
 SCRIPT_DIR=$(readlink -f "$0" | xargs dirname)
 
-LOG=${LOG-$SCRIPT_DIR/.log}
-CHANNEL=${CHANNEL-rootmos2}
+SESSION=${SESSION-stream}
+ACTION=${1-start}
 
-obs >> "$LOG" 2>&1 &
-OBS_PID=$!
-ERROR_LOG="$LOG" "$SCRIPT_DIR/restreamer" &
-"$SCRIPT_DIR/mpv/limbo" &
-
-chromium --new-window --start-fullscreen \
-    "https://dashboard.twitch.tv/u/$CHANNEL/stream-manager" &
-
-RUNNING=true
-
-cleanup() {
-    pkill -P $$
-    RUNNING=false
-}
-trap 'cleanup' INT EXIT
-
-obs-is-running() {
-    jobs -lr | grep -cq $OBS_PID
-}
-
-while $RUNNING && obs-is-running; do
-    set +o errexit
-    $PLAYER --really-quiet "https://twitch.tv/$CHANNEL"
-    set -o errexit
-done
+if [ "$ACTION" = "start" ]; then
+    tmux new-session -A -s "$SESSION" "$0" setup
+elif [ "$ACTION" = "setup" ]; then
+    echo "setting up..."
+    tmux new-window -n "restreamer" "$SCRIPT_DIR/restreamer"
+    while sleep 1; do
+        echo "done..."
+    done
+fi
