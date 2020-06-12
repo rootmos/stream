@@ -30,4 +30,5 @@ ${MPV-/usr/bin/mpv} \
         --shuffle \
         --playlist="$PLAYLIST" \
         --loop-playlist=inf \
+        --prefetch-playlist=yes \
         --really-quiet
