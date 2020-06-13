@@ -16,7 +16,8 @@ elif [ "$ACTION" = "setup" ]; then
     tmux new-window -n "limbo" "$SCRIPT_DIR/mpv/limbo"
     tmux new-window -n "obs" "$0" obs
     tmux new-window -n "monitor" "$0" monitor "$CHANNEL"
-    tmux new-window -n "chat" "$0" chat
+    tmux new-window -n "chat" "$0" chat-monitor
+    tmux split-window -v -t "chat" "$0" chat-prompt
     trap 'tmux kill-session -t "$SESSION"' EXIT
     echo -n "done"
     while sleep 1; do
@@ -25,12 +26,18 @@ elif [ "$ACTION" = "setup" ]; then
 elif [ "$ACTION" = "obs" ]; then
     trap 'tmux kill-session -t "$SESSION"' EXIT
     obs
-elif [ "$ACTION" = "chat" ]; then
+elif [ "$ACTION" = "chat-monitor" ]; then
     echo "joining: $CHANNEL"
     twitch-cli --chat "$CHANNEL" || true
     while sleep 5; do
         echo "reconnecting: $CHANNEL"
         twitch-cli --chat "$CHANNEL" || true
+    done
+elif [ "$ACTION" = "chat-prompt" ]; then
+    socat readline unix:"$HOME/.twitch-cli/channel/$CHANNEL" || true
+    while sleep 5; do
+        clear
+        socat readline unix:"$HOME/.twitch-cli/channel/$CHANNEL" || true
     done
 elif [ "$ACTION" = "monitor" ]; then
     URL="https://twitch.tv/$CHANNEL"
