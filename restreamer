@@ -45,8 +45,14 @@ events { }
 
 rtmp {
     access_log ${ACCESS_LOG-/dev/stdout};
+
+    ping 10s;
+    ping_timeout 5s;
+    drop_idle_publisher 5s;
+    idle_streams on;
+
     server {
-        listen 1935;
+        listen 1935 so_keepalive=on;
         chunk_size 4096;
 
         application $APP {

@@ -12,12 +12,15 @@ CHANNEL=${CHANNEL-${2-rootmos2}}
 if [ "$ACTION" = "start" ]; then
     tmux new-session -A -s "$SESSION" -n setup "$0" setup
 elif [ "$ACTION" = "setup" ]; then
-    tmux new-window -n "restreamer" "$SCRIPT_DIR/restreamer"
-    tmux new-window -n "limbo" "$SCRIPT_DIR/mpv/limbo"
-    tmux new-window -n "obs" "$0" obs
-    tmux new-window -n "monitor" "$0" monitor "$CHANNEL"
     tmux new-window -n "chat" "$0" chat-monitor
     tmux split-window -v -t "chat" "$0" chat-prompt
+    tmux new-window -n "title" "$0" title
+    tmux new-window -n "limbo" "$SCRIPT_DIR/mpv/limbo"
+    tmux new-window -n "restreamer" "$SCRIPT_DIR/restreamer"
+    tmux split-window -v -t "restreamer" "$0" android-port-forward
+    tmux new-window -n "obs" "$0" obs
+    tmux new-window -n "monitor" "$0" monitor "$CHANNEL"
+    tmux select-window -t "chat"
     trap 'tmux kill-session -t "$SESSION"' EXIT
     echo -n "done"
     while sleep 1; do
@@ -31,13 +34,21 @@ elif [ "$ACTION" = "chat-monitor" ]; then
     twitch-cli --chat "$CHANNEL" || true
     while sleep 5; do
         echo "reconnecting: $CHANNEL"
-        twitch-cli --chat "$CHANNEL" || true
+        twitch-cli --chat --activity "$CHANNEL" || true
     done
 elif [ "$ACTION" = "chat-prompt" ]; then
     socat readline unix:"$HOME/.twitch-cli/channel/$CHANNEL" || true
     while sleep 5; do
         clear
         socat readline unix:"$HOME/.twitch-cli/channel/$CHANNEL" || true
+    done
+elif [ "$ACTION" = "title" ]; then
+    while true; do
+        clear
+        echo "title: $(twitch-cli --manage --title)"
+        echo
+        read -p "press enter to edit... "
+        twitch-cli --manage --edit-title
     done
 elif [ "$ACTION" = "monitor" ]; then
     URL="https://twitch.tv/$CHANNEL"
@@ -53,5 +64,23 @@ elif [ "$ACTION" = "monitor" ]; then
             sleep 1
         done
         clear
+    done
+elif [ "$ACTION" = "android-port-forward" ]; then
+    while true; do
+        DEV=/dev/android
+        if [ -e "$DEV" ]; then
+            LOCAL=1935
+            REMOTE=1935
+            echo "forwarding remote port $REMOTE to local port $LOCAL"
+            adb reverse tcp:"$REMOTE" tcp:"$LOCAL"
+
+            while [ -e "$DEV" ]; do
+                echo "waiting for device to disconnect: $DEV"
+                sleep 5
+            done
+        else
+            echo "waiting for device: $DEV"
+            sleep 5
+        fi
     done
 fi
