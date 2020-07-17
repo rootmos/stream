@@ -1,6 +1,6 @@
 {
-    "current_program_scene": "Live",
-    "current_scene": "Live",
+    "current_program_scene": "Nothingness",
+    "current_scene": "Nothingness",
     "current_transition": "Fade",
     "groups": [
         {
@@ -179,21 +179,16 @@
             "enabled": true,
             "flags": 0,
             "hotkeys": {
-                "VLCSource.PlayPause": [],
-                "VLCSource.PlaylistNext": [],
-                "VLCSource.PlaylistPrev": [],
-                "VLCSource.Restart": [],
-                "VLCSource.Stop": [],
                 "libobs.mute": [],
                 "libobs.push-to-mute": [],
                 "libobs.push-to-talk": [],
                 "libobs.unmute": []
             },
-            "id": "vlc_source",
+            "id": "pulse_output_capture",
             "mixers": 255,
             "monitoring_type": 0,
             "muted": false,
-            "name": "rtmp://localhost/app/live",
+            "name": "limbo music",
             "prev_ver": 419430408,
             "private_settings": {},
             "push-to-mute": false,
@@ -201,18 +196,35 @@
             "push-to-talk": false,
             "push-to-talk-delay": 0,
             "settings": {
-                "network_caching": 4000,
-                "playback_behavior": "always_play",
-                "playlist": [
-                    {
-                        "hidden": false,
-                        "selected": false,
-                        "value": "rtmp://localhost/app/live"
-                    }
-                ]
+                "device_id": "limbo.monitor"
             },
             "sync": 0,
-            "versioned_id": "vlc_source",
+            "versioned_id": "pulse_output_capture",
+            "volume": 1.0
+        },
+        {
+            "balance": 0.5,
+            "deinterlace_field_order": 0,
+            "deinterlace_mode": 0,
+            "enabled": true,
+            "flags": 0,
+            "hotkeys": {},
+            "id": "color_source",
+            "mixers": 0,
+            "monitoring_type": 0,
+            "muted": false,
+            "name": "background",
+            "prev_ver": 419430408,
+            "private_settings": {},
+            "push-to-mute": false,
+            "push-to-mute-delay": 0,
+            "push-to-talk": false,
+            "push-to-talk-delay": 0,
+            "settings": {
+                "color": 4278190080
+            },
+            "sync": 0,
+            "versioned_id": "color_source_v2",
             "volume": 1.0
         },
         {
@@ -224,181 +236,29 @@
             "hotkeys": {
                 "OBSBasic.SelectScene": [
                     {
-                        "key": "OBS_KEY_F3"
-                    }
-                ]
-            },
-            "id": "scene",
-            "mixers": 0,
-            "monitoring_type": 0,
-            "muted": false,
-            "name": "Nothingness",
-            "prev_ver": 419430408,
-            "private_settings": {},
-            "push-to-mute": false,
-            "push-to-mute-delay": 0,
-            "push-to-talk": false,
-            "push-to-talk-delay": 0,
-            "settings": {
-                "custom_size": false,
-                "id_counter": 0,
-                "items": []
-            },
-            "sync": 0,
-            "versioned_id": "scene",
-            "volume": 1.0
-        },
-        {
-            "balance": 0.5,
-            "deinterlace_field_order": 0,
-            "deinterlace_mode": 0,
-            "enabled": true,
-            "flags": 0,
-            "hotkeys": {},
-            "id": "text_ft2_source",
-            "mixers": 0,
-            "monitoring_type": 0,
-            "muted": false,
-            "name": "now playing: link",
-            "prev_ver": 419430408,
-            "private_settings": {},
-            "push-to-mute": false,
-            "push-to-mute-delay": 0,
-            "push-to-talk": false,
-            "push-to-talk-delay": 0,
-            "settings": {
-                "font": {
-                    "face": "Inconsolata",
-                    "flags": 0,
-                    "size": 256,
-                    "style": "Regular"
-                },
-                "from_file": true,
-                "text_file": "/home/gustav/git/stream/mpv/run/link.txt"
-            },
-            "sync": 0,
-            "versioned_id": "text_ft2_source_v2",
-            "volume": 1.0
-        },
-        {
-            "balance": 0.5,
-            "deinterlace_field_order": 0,
-            "deinterlace_mode": 0,
-            "enabled": true,
-            "flags": 0,
-            "hotkeys": {},
-            "id": "text_ft2_source",
-            "mixers": 0,
-            "monitoring_type": 0,
-            "muted": false,
-            "name": "now playing",
-            "prev_ver": 419430408,
-            "private_settings": {},
-            "push-to-mute": false,
-            "push-to-mute-delay": 0,
-            "push-to-talk": false,
-            "push-to-talk-delay": 0,
-            "settings": {
-                "font": {
-                    "face": "Inconsolata",
-                    "flags": 0,
-                    "size": 256,
-                    "style": "Regular"
-                },
-                "text": "now playing:"
-            },
-            "sync": 0,
-            "versioned_id": "text_ft2_source_v2",
-            "volume": 1.0
-        },
-        {
-            "balance": 0.5,
-            "deinterlace_field_order": 0,
-            "deinterlace_mode": 0,
-            "enabled": true,
-            "flags": 0,
-            "hotkeys": {},
-            "id": "text_ft2_source",
-            "mixers": 0,
-            "monitoring_type": 0,
-            "muted": false,
-            "name": "now playing: title",
-            "prev_ver": 419430408,
-            "private_settings": {},
-            "push-to-mute": false,
-            "push-to-mute-delay": 0,
-            "push-to-talk": false,
-            "push-to-talk-delay": 0,
-            "settings": {
-                "font": {
-                    "face": "Inconsolata",
-                    "flags": 0,
-                    "size": 256,
-                    "style": "Regular"
-                },
-                "from_file": true,
-                "text": "",
-                "text_file": "/home/gustav/git/stream/mpv/run/title.txt"
-            },
-            "sync": 0,
-            "versioned_id": "text_ft2_source_v2",
-            "volume": 1.0
-        },
-        {
-            "balance": 0.5,
-            "deinterlace_field_order": 0,
-            "deinterlace_mode": 0,
-            "enabled": true,
-            "flags": 0,
-            "hotkeys": {},
-            "id": "text_ft2_source",
-            "mixers": 0,
-            "monitoring_type": 0,
-            "muted": false,
-            "name": "live",
-            "prev_ver": 419430408,
-            "private_settings": {},
-            "push-to-mute": false,
-            "push-to-mute-delay": 0,
-            "push-to-talk": false,
-            "push-to-talk-delay": 0,
-            "settings": {
-                "color1": 4278190335,
-                "color2": 4278190335,
-                "font": {
-                    "face": "Inconsolata",
-                    "flags": 0,
-                    "size": 256,
-                    "style": "Regular"
-                },
-                "text": "live!"
-            },
-            "sync": 0,
-            "versioned_id": "text_ft2_source_v2",
-            "volume": 1.0
-        },
-        {
-            "balance": 0.5,
-            "deinterlace_field_order": 0,
-            "deinterlace_mode": 0,
-            "enabled": true,
-            "flags": 0,
-            "hotkeys": {
-                "OBSBasic.SelectScene": [
-                    {
-                        "key": "OBS_KEY_F5"
+                        "key": "OBS_KEY_F2"
                     }
                 ],
+                "libobs.hide_scene_item.UCA202": [],
+                "libobs.hide_scene_item.avatar": [],
+                "libobs.hide_scene_item.background": [],
+                "libobs.hide_scene_item.camera": [],
                 "libobs.hide_scene_item.homepage": [],
-                "libobs.hide_scene_item.rtmp://localhost/app/live": [],
+                "libobs.hide_scene_item.live": [],
+                "libobs.hide_scene_item.purple diamond": [],
+                "libobs.show_scene_item.UCA202": [],
+                "libobs.show_scene_item.avatar": [],
+                "libobs.show_scene_item.background": [],
+                "libobs.show_scene_item.camera": [],
                 "libobs.show_scene_item.homepage": [],
-                "libobs.show_scene_item.rtmp://localhost/app/live": []
+                "libobs.show_scene_item.live": [],
+                "libobs.show_scene_item.purple diamond": []
             },
             "id": "scene",
             "mixers": 0,
             "monitoring_type": 0,
             "muted": false,
-            "name": "Live",
+            "name": "Limbo (live sound)",
             "prev_ver": 419430408,
             "private_settings": {},
             "push-to-mute": false,
@@ -407,7 +267,7 @@
             "push-to-talk-delay": 0,
             "settings": {
                 "custom_size": false,
-                "id_counter": 12,
+                "id_counter": 9,
                 "items": [
                     {
                         "align": 5,
@@ -422,9 +282,9 @@
                         "crop_right": 0,
                         "crop_top": 0,
                         "group_item_backup": false,
-                        "id": 12,
+                        "id": 9,
                         "locked": true,
-                        "name": "rtmp://localhost/app/live",
+                        "name": "UCA202",
                         "pos": {
                             "x": 0.0,
                             "y": 0.0
@@ -451,12 +311,128 @@
                         "crop_right": 0,
                         "crop_top": 0,
                         "group_item_backup": false,
+                        "id": 8,
+                        "locked": true,
+                        "name": "camera",
+                        "pos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "private_settings": {},
+                        "rot": 0.0,
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0
+                        },
+                        "scale_filter": "disable",
+                        "visible": true
+                    },
+                    {
+                        "align": 5,
+                        "bounds": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "bounds_align": 0,
+                        "bounds_type": 0,
+                        "crop_bottom": 0,
+                        "crop_left": 0,
+                        "crop_right": 0,
+                        "crop_top": 0,
+                        "group_item_backup": false,
+                        "id": 5,
+                        "locked": true,
+                        "name": "background",
+                        "pos": {
+                            "x": -217.0,
+                            "y": -142.0
+                        },
+                        "private_settings": {},
+                        "rot": 0.0,
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0
+                        },
+                        "scale_filter": "disable",
+                        "visible": true
+                    },
+                    {
+                        "align": 5,
+                        "bounds": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "bounds_align": 0,
+                        "bounds_type": 0,
+                        "crop_bottom": 0,
+                        "crop_left": 0,
+                        "crop_right": 0,
+                        "crop_top": 0,
+                        "group_item_backup": false,
+                        "id": 1,
+                        "locked": true,
+                        "name": "purple diamond",
+                        "pos": {
+                            "x": -10.0,
+                            "y": 1.0
+                        },
+                        "private_settings": {},
+                        "rot": 0.0,
+                        "scale": {
+                            "x": 0.89499998092651367,
+                            "y": 0.89499998092651367
+                        },
+                        "scale_filter": "disable",
+                        "visible": true
+                    },
+                    {
+                        "align": 5,
+                        "bounds": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "bounds_align": 0,
+                        "bounds_type": 0,
+                        "crop_bottom": 0,
+                        "crop_left": 0,
+                        "crop_right": 0,
+                        "crop_top": 0,
+                        "group_item_backup": false,
                         "id": 2,
+                        "locked": true,
+                        "name": "avatar",
+                        "pos": {
+                            "x": 756.0,
+                            "y": 108.0
+                        },
+                        "private_settings": {},
+                        "rot": 0.0,
+                        "scale": {
+                            "x": 1.0456521511077881,
+                            "y": 1.0456521511077881
+                        },
+                        "scale_filter": "disable",
+                        "visible": true
+                    },
+                    {
+                        "align": 5,
+                        "bounds": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "bounds_align": 0,
+                        "bounds_type": 0,
+                        "crop_bottom": 0,
+                        "crop_left": 0,
+                        "crop_right": 0,
+                        "crop_top": 0,
+                        "group_item_backup": false,
+                        "id": 3,
                         "locked": true,
                         "name": "homepage",
                         "pos": {
-                            "x": 910.0,
-                            "y": 661.0
+                            "x": 814.0,
+                            "y": 629.0
                         },
                         "private_settings": {},
                         "rot": 0.0,
@@ -466,11 +442,121 @@
                         },
                         "scale_filter": "disable",
                         "visible": true
+                    },
+                    {
+                        "align": 5,
+                        "bounds": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "bounds_align": 0,
+                        "bounds_type": 0,
+                        "crop_bottom": 0,
+                        "crop_left": 0,
+                        "crop_right": 0,
+                        "crop_top": 0,
+                        "group_item_backup": false,
+                        "id": 7,
+                        "locked": true,
+                        "name": "live",
+                        "pos": {
+                            "x": 1101.0,
+                            "y": 26.0
+                        },
+                        "private_settings": {},
+                        "rot": 0.0,
+                        "scale": {
+                            "x": 0.228515625,
+                            "y": 0.22831049561500549
+                        },
+                        "scale_filter": "disable",
+                        "visible": true
                     }
                 ]
             },
             "sync": 0,
             "versioned_id": "scene",
+            "volume": 1.0
+        },
+        {
+            "balance": 0.5,
+            "deinterlace_field_order": 0,
+            "deinterlace_mode": 0,
+            "enabled": true,
+            "flags": 0,
+            "hotkeys": {},
+            "id": "text_ft2_source",
+            "mixers": 0,
+            "monitoring_type": 0,
+            "muted": false,
+            "name": "homepage",
+            "prev_ver": 419430408,
+            "private_settings": {},
+            "push-to-mute": false,
+            "push-to-mute-delay": 0,
+            "push-to-talk": false,
+            "push-to-talk-delay": 0,
+            "settings": {
+                "font": {
+                    "face": "Inconsolata",
+                    "flags": 0,
+                    "size": 256,
+                    "style": "Regular"
+                },
+                "text": "https://rootmos.io"
+            },
+            "sync": 0,
+            "versioned_id": "text_ft2_source_v2",
+            "volume": 1.0
+        },
+        {
+            "balance": 0.5,
+            "deinterlace_field_order": 0,
+            "deinterlace_mode": 0,
+            "enabled": true,
+            "flags": 0,
+            "hotkeys": {},
+            "id": "image_source",
+            "mixers": 0,
+            "monitoring_type": 0,
+            "muted": false,
+            "name": "purple diamond",
+            "prev_ver": 419430408,
+            "private_settings": {},
+            "push-to-mute": false,
+            "push-to-mute-delay": 0,
+            "push-to-talk": false,
+            "push-to-talk-delay": 0,
+            "settings": {
+                "file": "/home/gustav/git/sandbox/rootmos-2.jpg"
+            },
+            "sync": 0,
+            "versioned_id": "image_source",
+            "volume": 1.0
+        },
+        {
+            "balance": 0.5,
+            "deinterlace_field_order": 0,
+            "deinterlace_mode": 0,
+            "enabled": true,
+            "flags": 0,
+            "hotkeys": {},
+            "id": "image_source",
+            "mixers": 0,
+            "monitoring_type": 0,
+            "muted": false,
+            "name": "avatar",
+            "prev_ver": 419430408,
+            "private_settings": {},
+            "push-to-mute": false,
+            "push-to-mute-delay": 0,
+            "push-to-talk": false,
+            "push-to-talk-delay": 0,
+            "settings": {
+                "file": "/home/gustav/git/sandbox/rootmos.jpg"
+            },
+            "sync": 0,
+            "versioned_id": "image_source",
             "volume": 1.0
         },
         {
@@ -786,111 +872,24 @@
             "deinterlace_mode": 0,
             "enabled": true,
             "flags": 0,
-            "hotkeys": {},
-            "id": "image_source",
-            "mixers": 0,
-            "monitoring_type": 0,
-            "muted": false,
-            "name": "avatar",
-            "prev_ver": 419430408,
-            "private_settings": {},
-            "push-to-mute": false,
-            "push-to-mute-delay": 0,
-            "push-to-talk": false,
-            "push-to-talk-delay": 0,
-            "settings": {
-                "file": "/home/gustav/git/sandbox/rootmos.jpg"
-            },
-            "sync": 0,
-            "versioned_id": "image_source",
-            "volume": 1.0
-        },
-        {
-            "balance": 0.5,
-            "deinterlace_field_order": 0,
-            "deinterlace_mode": 0,
-            "enabled": true,
-            "flags": 0,
-            "hotkeys": {},
-            "id": "image_source",
-            "mixers": 0,
-            "monitoring_type": 0,
-            "muted": false,
-            "name": "purple diamond",
-            "prev_ver": 419430408,
-            "private_settings": {},
-            "push-to-mute": false,
-            "push-to-mute-delay": 0,
-            "push-to-talk": false,
-            "push-to-talk-delay": 0,
-            "settings": {
-                "file": "/home/gustav/git/sandbox/rootmos-2.jpg"
-            },
-            "sync": 0,
-            "versioned_id": "image_source",
-            "volume": 1.0
-        },
-        {
-            "balance": 0.5,
-            "deinterlace_field_order": 0,
-            "deinterlace_mode": 0,
-            "enabled": true,
-            "flags": 0,
-            "hotkeys": {},
-            "id": "text_ft2_source",
-            "mixers": 0,
-            "monitoring_type": 0,
-            "muted": false,
-            "name": "homepage",
-            "prev_ver": 419430408,
-            "private_settings": {},
-            "push-to-mute": false,
-            "push-to-mute-delay": 0,
-            "push-to-talk": false,
-            "push-to-talk-delay": 0,
-            "settings": {
-                "font": {
-                    "face": "Inconsolata",
-                    "flags": 0,
-                    "size": 256,
-                    "style": "Regular"
-                },
-                "text": "https://rootmos.io"
-            },
-            "sync": 0,
-            "versioned_id": "text_ft2_source_v2",
-            "volume": 1.0
-        },
-        {
-            "balance": 0.5,
-            "deinterlace_field_order": 0,
-            "deinterlace_mode": 0,
-            "enabled": true,
-            "flags": 0,
             "hotkeys": {
                 "OBSBasic.SelectScene": [
                     {
-                        "key": "OBS_KEY_F2"
+                        "key": "OBS_KEY_F5"
                     }
                 ],
-                "libobs.hide_scene_item.avatar": [],
-                "libobs.hide_scene_item.background": [],
+                "libobs.hide_scene_item.UCA202": [],
+                "libobs.hide_scene_item.camera": [],
                 "libobs.hide_scene_item.homepage": [],
-                "libobs.hide_scene_item.live": [],
-                "libobs.hide_scene_item.purple diamond": [],
-                "libobs.hide_scene_item.rtmp://localhost/app/live": [],
-                "libobs.show_scene_item.avatar": [],
-                "libobs.show_scene_item.background": [],
-                "libobs.show_scene_item.homepage": [],
-                "libobs.show_scene_item.live": [],
-                "libobs.show_scene_item.purple diamond": [],
-                "libobs.show_scene_item.rtmp://localhost/app/live": []
+                "libobs.show_scene_item.UCA202": [],
+                "libobs.show_scene_item.camera": [],
+                "libobs.show_scene_item.homepage": []
             },
             "id": "scene",
             "mixers": 0,
             "monitoring_type": 0,
             "muted": false,
-            "name": "Limbo (live sound)",
+            "name": "Live",
             "prev_ver": 419430408,
             "private_settings": {},
             "push-to-mute": false,
@@ -899,7 +898,7 @@
             "push-to-talk-delay": 0,
             "settings": {
                 "custom_size": false,
-                "id_counter": 8,
+                "id_counter": 13,
                 "items": [
                     {
                         "align": 5,
@@ -914,9 +913,9 @@
                         "crop_right": 0,
                         "crop_top": 0,
                         "group_item_backup": false,
-                        "id": 8,
+                        "id": 13,
                         "locked": true,
-                        "name": "rtmp://localhost/app/live",
+                        "name": "UCA202",
                         "pos": {
                             "x": 0.0,
                             "y": 0.0
@@ -943,47 +942,18 @@
                         "crop_right": 0,
                         "crop_top": 0,
                         "group_item_backup": false,
-                        "id": 5,
+                        "id": 12,
                         "locked": true,
-                        "name": "background",
+                        "name": "camera",
                         "pos": {
-                            "x": -217.0,
-                            "y": -142.0
+                            "x": 0.0,
+                            "y": 0.0
                         },
                         "private_settings": {},
                         "rot": 0.0,
                         "scale": {
                             "x": 1.0,
                             "y": 1.0
-                        },
-                        "scale_filter": "disable",
-                        "visible": true
-                    },
-                    {
-                        "align": 5,
-                        "bounds": {
-                            "x": 0.0,
-                            "y": 0.0
-                        },
-                        "bounds_align": 0,
-                        "bounds_type": 0,
-                        "crop_bottom": 0,
-                        "crop_left": 0,
-                        "crop_right": 0,
-                        "crop_top": 0,
-                        "group_item_backup": false,
-                        "id": 1,
-                        "locked": true,
-                        "name": "purple diamond",
-                        "pos": {
-                            "x": -10.0,
-                            "y": 1.0
-                        },
-                        "private_settings": {},
-                        "rot": 0.0,
-                        "scale": {
-                            "x": 0.89499998092651367,
-                            "y": 0.89499998092651367
                         },
                         "scale_filter": "disable",
                         "visible": true
@@ -1003,74 +973,16 @@
                         "group_item_backup": false,
                         "id": 2,
                         "locked": true,
-                        "name": "avatar",
-                        "pos": {
-                            "x": 756.0,
-                            "y": 108.0
-                        },
-                        "private_settings": {},
-                        "rot": 0.0,
-                        "scale": {
-                            "x": 1.0456521511077881,
-                            "y": 1.0456521511077881
-                        },
-                        "scale_filter": "disable",
-                        "visible": true
-                    },
-                    {
-                        "align": 5,
-                        "bounds": {
-                            "x": 0.0,
-                            "y": 0.0
-                        },
-                        "bounds_align": 0,
-                        "bounds_type": 0,
-                        "crop_bottom": 0,
-                        "crop_left": 0,
-                        "crop_right": 0,
-                        "crop_top": 0,
-                        "group_item_backup": false,
-                        "id": 3,
-                        "locked": true,
                         "name": "homepage",
                         "pos": {
-                            "x": 814.0,
-                            "y": 629.0
+                            "x": 910.0,
+                            "y": 661.0
                         },
                         "private_settings": {},
                         "rot": 0.0,
                         "scale": {
                             "x": 0.1506076455116272,
                             "y": 0.15057915449142456
-                        },
-                        "scale_filter": "disable",
-                        "visible": true
-                    },
-                    {
-                        "align": 5,
-                        "bounds": {
-                            "x": 0.0,
-                            "y": 0.0
-                        },
-                        "bounds_align": 0,
-                        "bounds_type": 0,
-                        "crop_bottom": 0,
-                        "crop_left": 0,
-                        "crop_right": 0,
-                        "crop_top": 0,
-                        "group_item_backup": false,
-                        "id": 7,
-                        "locked": true,
-                        "name": "live",
-                        "pos": {
-                            "x": 1101.0,
-                            "y": 26.0
-                        },
-                        "private_settings": {},
-                        "rot": 0.0,
-                        "scale": {
-                            "x": 0.228515625,
-                            "y": 0.22831049561500549
                         },
                         "scale_filter": "disable",
                         "visible": true
@@ -1088,11 +1000,11 @@
             "enabled": true,
             "flags": 0,
             "hotkeys": {},
-            "id": "color_source",
+            "id": "text_ft2_source",
             "mixers": 0,
             "monitoring_type": 0,
             "muted": false,
-            "name": "background",
+            "name": "live",
             "prev_ver": 419430408,
             "private_settings": {},
             "push-to-mute": false,
@@ -1100,10 +1012,190 @@
             "push-to-talk": false,
             "push-to-talk-delay": 0,
             "settings": {
-                "color": 4278190080
+                "color1": 4278190335,
+                "color2": 4278190335,
+                "font": {
+                    "face": "Inconsolata",
+                    "flags": 0,
+                    "size": 256,
+                    "style": "Regular"
+                },
+                "text": "live!"
             },
             "sync": 0,
-            "versioned_id": "color_source_v2",
+            "versioned_id": "text_ft2_source_v2",
+            "volume": 1.0
+        },
+        {
+            "balance": 0.5,
+            "deinterlace_field_order": 0,
+            "deinterlace_mode": 0,
+            "enabled": true,
+            "flags": 0,
+            "hotkeys": {},
+            "id": "text_ft2_source",
+            "mixers": 0,
+            "monitoring_type": 0,
+            "muted": false,
+            "name": "now playing: title",
+            "prev_ver": 419430408,
+            "private_settings": {},
+            "push-to-mute": false,
+            "push-to-mute-delay": 0,
+            "push-to-talk": false,
+            "push-to-talk-delay": 0,
+            "settings": {
+                "font": {
+                    "face": "Inconsolata",
+                    "flags": 0,
+                    "size": 256,
+                    "style": "Regular"
+                },
+                "from_file": true,
+                "text": "",
+                "text_file": "/home/gustav/git/stream/mpv/run/title.txt"
+            },
+            "sync": 0,
+            "versioned_id": "text_ft2_source_v2",
+            "volume": 1.0
+        },
+        {
+            "balance": 0.5,
+            "deinterlace_field_order": 0,
+            "deinterlace_mode": 0,
+            "enabled": true,
+            "flags": 0,
+            "hotkeys": {},
+            "id": "text_ft2_source",
+            "mixers": 0,
+            "monitoring_type": 0,
+            "muted": false,
+            "name": "now playing",
+            "prev_ver": 419430408,
+            "private_settings": {},
+            "push-to-mute": false,
+            "push-to-mute-delay": 0,
+            "push-to-talk": false,
+            "push-to-talk-delay": 0,
+            "settings": {
+                "font": {
+                    "face": "Inconsolata",
+                    "flags": 0,
+                    "size": 256,
+                    "style": "Regular"
+                },
+                "text": "now playing:"
+            },
+            "sync": 0,
+            "versioned_id": "text_ft2_source_v2",
+            "volume": 1.0
+        },
+        {
+            "balance": 0.5,
+            "deinterlace_field_order": 0,
+            "deinterlace_mode": 0,
+            "enabled": true,
+            "flags": 0,
+            "hotkeys": {},
+            "id": "text_ft2_source",
+            "mixers": 0,
+            "monitoring_type": 0,
+            "muted": false,
+            "name": "now playing: link",
+            "prev_ver": 419430408,
+            "private_settings": {},
+            "push-to-mute": false,
+            "push-to-mute-delay": 0,
+            "push-to-talk": false,
+            "push-to-talk-delay": 0,
+            "settings": {
+                "font": {
+                    "face": "Inconsolata",
+                    "flags": 0,
+                    "size": 256,
+                    "style": "Regular"
+                },
+                "from_file": true,
+                "text_file": "/home/gustav/git/stream/mpv/run/link.txt"
+            },
+            "sync": 0,
+            "versioned_id": "text_ft2_source_v2",
+            "volume": 1.0
+        },
+        {
+            "balance": 0.5,
+            "deinterlace_field_order": 0,
+            "deinterlace_mode": 0,
+            "enabled": true,
+            "flags": 0,
+            "hotkeys": {
+                "OBSBasic.SelectScene": [
+                    {
+                        "key": "OBS_KEY_F3"
+                    }
+                ]
+            },
+            "id": "scene",
+            "mixers": 0,
+            "monitoring_type": 0,
+            "muted": false,
+            "name": "Nothingness",
+            "prev_ver": 419430408,
+            "private_settings": {},
+            "push-to-mute": false,
+            "push-to-mute-delay": 0,
+            "push-to-talk": false,
+            "push-to-talk-delay": 0,
+            "settings": {
+                "custom_size": false,
+                "id_counter": 0,
+                "items": []
+            },
+            "sync": 0,
+            "versioned_id": "scene",
+            "volume": 1.0
+        },
+        {
+            "balance": 0.5,
+            "deinterlace_field_order": 0,
+            "deinterlace_mode": 0,
+            "enabled": true,
+            "flags": 0,
+            "hotkeys": {
+                "VLCSource.PlayPause": [],
+                "VLCSource.PlaylistNext": [],
+                "VLCSource.PlaylistPrev": [],
+                "VLCSource.Restart": [],
+                "VLCSource.Stop": [],
+                "libobs.mute": [],
+                "libobs.push-to-mute": [],
+                "libobs.push-to-talk": [],
+                "libobs.unmute": []
+            },
+            "id": "vlc_source",
+            "mixers": 255,
+            "monitoring_type": 0,
+            "muted": true,
+            "name": "camera",
+            "prev_ver": 419430408,
+            "private_settings": {},
+            "push-to-mute": false,
+            "push-to-mute-delay": 0,
+            "push-to-talk": false,
+            "push-to-talk-delay": 0,
+            "settings": {
+                "network_caching": 1000,
+                "playback_behavior": "always_play",
+                "playlist": [
+                    {
+                        "hidden": false,
+                        "selected": true,
+                        "value": "rtmp://localhost/camera/live"
+                    }
+                ]
+            },
+            "sync": 0,
+            "versioned_id": "vlc_source",
             "volume": 1.0
         },
         {
@@ -1118,11 +1210,11 @@
                 "libobs.push-to-talk": [],
                 "libobs.unmute": []
             },
-            "id": "pulse_output_capture",
+            "id": "pulse_input_capture",
             "mixers": 255,
             "monitoring_type": 0,
             "muted": false,
-            "name": "limbo music",
+            "name": "UCA202",
             "prev_ver": 419430408,
             "private_settings": {},
             "push-to-mute": false,
@@ -1130,10 +1222,10 @@
             "push-to-talk": false,
             "push-to-talk-delay": 0,
             "settings": {
-                "device_id": "limbo.monitor"
+                "device_id": "alsa_input.usb-Burr-Brown_from_TI_USB_Audio_CODEC-00.analog-stereo"
             },
-            "sync": 0,
-            "versioned_id": "pulse_output_capture",
+            "sync": 5862000000,
+            "versioned_id": "pulse_input_capture",
             "volume": 1.0
         }
     ],

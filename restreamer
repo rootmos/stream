@@ -9,7 +9,7 @@ ACTION=${1-}
 NGINX=nginx-rtmp
 
 if [ "$ACTION" = "install" ]; then
-    PREFIX=$2
+    PREFIX=${2-$HOME/root/nginx}
 
     wget -O "$TMP/nginx.tar.gz" "http://nginx.org/download/nginx-1.17.10.tar.gz"
     wget -O "$TMP/rtmp-module.tar.gz" "https://github.com/arut/nginx-rtmp-module/archive/v1.2.1.tar.gz"
@@ -34,9 +34,6 @@ EOF
     exit 0
 fi
 
-APP=${1-app}
-STREAM=${2-live}
-
 cat <<EOF > "$TMP/config"
 daemon off;
 error_log ${ERROR_LOG-/dev/stderr} info;
@@ -55,7 +52,17 @@ rtmp {
         listen 1935 so_keepalive=on;
         chunk_size 4096;
 
-        application $APP {
+        application app {
+            live on;
+            record off;
+        }
+
+        application camera {
+            live on;
+            record off;
+        }
+
+        application stream {
             live on;
             record off;
         }
